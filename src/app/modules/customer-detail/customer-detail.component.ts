@@ -34,7 +34,7 @@ export class CustomerDetailComponent implements OnInit {
 
     // this.productList = ['RO Membrane In Wielded Housing', 'SHF RO Membrane In Wielded Housing', 'HF RO Membrane In Wielded Housing', 'RO Membrane In Wielded Compact', 'UF Membrane In Wielded Housing', 'Inline Sediment Filter', 'Inline Carbon Filter', 'Post Carbon Filter', 'Inline UF Filter', 'Sediment Filter']; // more need to be added or given by the client
     // this.callTypeList = ['Warranty', 'Out of Warranty', 'Contract']
-    this.serviceTypeList = ['customer Services','AK EnterPrises']
+    this.serviceTypeList = ['customer Services']
 
     this.commonService._customerInfoDataSubject.asObservable().pipe(take(1)).subscribe((custData: any) => {
 
