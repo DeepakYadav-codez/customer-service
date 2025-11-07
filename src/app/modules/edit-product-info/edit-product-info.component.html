@@ -1,0 +1,59 @@
+<div class="customer-detail-wrapper">
+    <div class="container">
+        <div class="page-title">        
+            <h2 class="font-muli"><mat-icon>edit</mat-icon> <span routerLink="/dashboard">Dashboard</span> / <span>Edit Product Info</span></h2>
+        </div>
+        <div class="customer-detail-form">
+            <section>
+                <h2 class="heading">Edit Product Info</h2>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="field-holder">
+                            <mat-form-field class="example-chip-list" appearance="fill">
+                                <mat-label>Spare</mat-label>
+                                <mat-chip-list #chipList aria-label="Spare">
+                                    <mat-chip *ngFor="let spare of spareList" (removed)="remove(spare)">
+                                    {{spare?.name}}
+                                    <button matChipRemove>
+                                        <mat-icon>cancel</mat-icon>
+                                    </button>
+                                    </mat-chip>
+                                    <input placeholder="Add new spares..."
+                                            [matChipInputFor]="chipList"
+                                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                            [matChipInputAddOnBlur]="addOnBlur"
+                                            (matChipInputTokenEnd)="add($event)">
+                                </mat-chip-list>
+                            </mat-form-field>                                
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="field-holder">
+                            <mat-form-field class="example-chip-list" appearance="fill">
+                                <mat-label>Call Type</mat-label>
+                                <mat-chip-list #chipList2 aria-label="Call Type">
+                                    <mat-chip *ngFor="let callType of callTypeList" (removed)="removeCallType(callType)">
+                                    {{callType?.name}}
+                                    <button matChipRemove>
+                                        <mat-icon>cancel</mat-icon>
+                                    </button>
+                                    </mat-chip>
+                                    <input placeholder="Add new call type..."
+                                            [matChipInputFor]="chipList2"
+                                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                            [matChipInputAddOnBlur]="addOnBlur2"
+                                            (matChipInputTokenEnd)="addCallType($event)">
+                                </mat-chip-list>
+                            </mat-form-field> 
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="clearfix button-wrapper">
+                <div class="float-right">
+                        <button mat-raised-button color="accent" type="button" (click)="saveProductData()" >Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

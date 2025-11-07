@@ -1,0 +1,112 @@
+.dashboard-wrapper {
+    min-height: 100%;
+    padding-top: 70px;
+    background-color: #f2edf3;
+    &.view-notification {
+        &::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0,0,0,.5);
+        }
+    }
+}
+
+.page-title {
+    margin: 2rem 0 0;
+    .mat-icon {
+        width: 35px;
+        height: 35px;
+        margin-right: 15px;
+        border-radius: 100%;
+        background-color: #00C9FF;
+        line-height: 35px;
+        vertical-align: middle;
+        text-align: center;
+    }
+    h2 {
+        margin: 0;
+        letter-spacing: 0.5px;
+        span {
+            cursor: pointer;
+            font-weight: 700;
+            &:hover {
+                color: #00C9FF
+            }
+            &:last-child {
+                cursor: auto;
+             &:hover {
+                 color: #000;
+             }
+            }
+        }
+    }
+}
+
+.dashboard-list {
+    margin: 3rem 0;
+    .list-wrapper {
+        height: 200px;
+        padding: 1.5rem;
+        border-radius: 6px;
+        box-shadow: 1px 2px 3px #a3a3a3;
+        background: url('/assets/imgs/circle.svg') no-repeat 100% 100% #00C9FF;
+        cursor: pointer;
+        transition: all 250ms ease-in-out;
+        .clearfix {overflow: none; }
+        .float-left { float: left; }
+        .float-right { float: right; }
+        h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            letter-spacing: 1px;
+            transition: all 250ms ease-in-out;
+            span {
+                margin: 1rem 0 0;
+                display: block;
+            }
+        }
+        .mat-icon {
+            font-size: 30px;
+            color: #fff;
+            transition: all 250ms ease-in-out;
+        }
+        &:hover {
+            transition: all 250ms ease-in-out;
+            box-shadow: 1px 3px 5px #535353;
+            h3 {
+                color: #000;
+                transition: all 250ms ease-in-out;
+            }
+
+            .mat-icon {
+                color: #000;
+                transition: all 250ms ease-in-out;
+            }
+
+        }
+    }
+}
+
+.notification-sidebar-wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: calc(100vw - 75%);
+    height: calc(100vh);
+    transform: translateX(28vw);
+    display: none;
+    transition: all 300ms linear;
+    background-color: #fff;
+    padding: 15px;
+    overflow-x: auto;
+    &.view-panel {
+        display: block;
+        transform: translateX(0);
+    }
+}

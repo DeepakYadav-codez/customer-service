@@ -1,0 +1,92 @@
+.customer-detail-wrapper {
+    min-height: 100%;
+    padding-top: 70px;
+    background-color: #f2edf3;
+    .page-title {
+        margin: 2rem 0 0;
+        .mat-icon {
+            width: 35px;
+            height: 35px;
+            margin-right: 15px;
+            border-radius: 100%;
+            background-color: #00C9FF;
+            line-height: 35px;
+            vertical-align: middle;
+            text-align: center;
+        }
+        h2 {
+            margin: 0;
+            letter-spacing: 0.5px;
+            span {
+                cursor: pointer;
+                font-weight: 700;
+                &:hover {
+                    color: #00C9FF;
+                }
+                &:last-child { 
+                    cursor: auto;
+                 &:hover {
+                     color: #000;
+                 }
+                }
+            }
+        }
+    }
+}
+
+
+.customer-detail-form {
+    margin-top: 30px;
+    background-color: #fff;
+    .clearfix {
+        overflow: auto;
+    }
+    .float-left { float: left; }
+    .float-right { float: right; }
+    section {
+        margin-bottom: 20px;
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+    .heading {
+        padding: 10px;
+        background-color: #00C9FF;
+    }
+
+    .field-holder {
+        padding: 10px 25px;
+        ::ng-deep .mat-form-field {
+            width: 100%;
+            .mat-form-field-label {
+                color: #000;
+            }
+            .mat-form-field-underline {
+                background-color: #000;
+            }
+            .mat-select-value {
+                color: #000;
+            }
+        }
+    }
+    .button-wrapper {
+        padding: 10px 15px;
+        .form-invalid {
+            opacity: 0.5;
+        }
+    }
+}
+.visit-date {
+    pointer-events: none;
+}
+
+::ng-deep .mat-focus-indicator.mat-icon-button.mat-button-base {
+    color: #000;
+}
+
+.tech-detail {
+    .row {
+        box-shadow: 0 2px 3px #b6b6b6;
+        margin: 0 0 15px;
+    }
+}

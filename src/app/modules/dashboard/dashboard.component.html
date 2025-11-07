@@ -1,0 +1,70 @@
+<div class="dashboard-wrapper" [ngClass]="{'view-notification': viewNotificationsBar}">
+    <div class="container">
+        <div class="page-title">
+            <div class="clearfix">
+                <div class="float-start">
+                    <h2 class="font-muli"><mat-icon>home</mat-icon> <span>Dashboard</span></h2>
+                </div>
+                <div class="float-end">
+                    <span class="notifications-icon" (click)="viewNotifications();">
+                        <mat-icon>notifications</mat-icon>
+                    </span>
+                </div>
+            </div>
+        </div> <div class="dashboard-list">
+            <div class="row">
+                <div class="col-xl-4 col-lg-5 col-md-6 col-sm-6 mb-4">
+                    <div class="list-wrapper" (click)="openLink('customerdetail')">
+                        <div class="clearfix">
+                            <div class="float-left">
+                                <h3>Add Customer Detail</h3>
+                            </div>
+                            <div class="float-right">
+                                <div class="icon">
+                                    <mat-icon>article</mat-icon>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-5 col-md-6 col-sm-6 mb-4">
+                    <div class="list-wrapper" (click)="openLink('customerinfo')">
+                        <div class="clearfix">
+                            <div class="float-left">
+                                <h3>Customer Info</h3>
+                            </div>
+                            <div class="float-right">
+                                <div class="icon">
+                                    <mat-icon>list</mat-icon>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-5 col-md-6 col-sm-6 mb-4">
+                    <div class="list-wrapper" (click)="openLink('editproductInfo')">
+                        <div class="clearfix">
+                            <div class="float-left">
+                                <h3>Edit Product Info</h3>
+                            </div>
+                            <div class="float-right">
+                                <div class="icon">
+                                    <mat-icon>edit</mat-icon>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-container *ngIf="viewNotificationsBar">
+    <div class="notification-sidebar-wrapper" [ngClass]="{'view-panel': viewNotificationsBar}">
+        <notifications (messageEvent)="panelTrigger($event)"></notifications>
+    </div>
+</ng-container>

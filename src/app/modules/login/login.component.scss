@@ -1,0 +1,50 @@
+.login-wrapper {
+  min-height: 100%;
+  padding-top: 70px;
+  background-color: #f2edf3;
+}
+
+.login-body {
+  padding: 15px;
+  background-color: #00C9FF;
+  h4 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-align: center;
+  }
+  .field-holder {
+      margin: 25px auto;
+      ::ng-deep .mat-form-field {
+          width: 100%;
+          .mat-form-field-label {
+              color: #000;
+          }
+          .mat-form-field-underline {
+              background-color: #000;
+          }
+          .mat-select-value {
+              color: #000;
+          }
+          .mat-form-field-infix {
+              background-color: #fff;
+          }
+      }
+  }
+  .button-wrapper button {
+    background-color: #fff;
+    &.form-invalid { 
+        opacity: .7;
+        pointer-events: none;
+      }
+  }
+}
+
+.clearfix {
+  overflow: auto;
+}
+.float-right {
+  float: right;
+}
+

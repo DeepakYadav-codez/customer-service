@@ -1,0 +1,11 @@
+<div class="notifications-wrapper">
+    <div class="clearfix">
+        <div class="close-panel">
+            <mat-icon (click)="closePanel();">close</mat-icon>
+        </div>
+    </div>
+    <mat-card class="notification-item" *ngFor="let customer of customerDataList" (click)="viewCustomerData(customer)">
+        <mat-card-title>{{customer?.fullName}}</mat-card-title>
+        <mat-card-subtitle>{{customer?.visitDate}}</mat-card-subtitle>
+    </mat-card>
+</div>

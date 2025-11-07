@@ -1,0 +1,46 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+
+
+@font-face {
+    font-family: 'Muli';
+    src: url('./assets/fonts/Muli-VariableFont_wght.ttf') format('truetype');
+    font-weight: bolder;
+    font-style: normal;
+  }
+
+  html, body { height: 100%; }
+  body { 
+      margin: 0; 
+      // font-family: Roboto, "Helvetica Neue", sans-serif; 
+      font-family: Muli, sans-serif;
+  }
+  
+  a, button, span {
+      outline: none;
+      &:focus {
+          outline: none;
+      }
+  }
+  
+  
+  a, button , h1, h2, h3, h4, h5, h6, div, ul, li, span, table, th, td {
+      font-family: Muli, sans-serif;
+  } 
+  
+  .font-muli {
+      font-family: Muli, sans-serif;
+  }
+  
+  .mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent {
+    background-color: #00C9FF;
+    color: #000;
+}
+
+.mat-paginator-range-actions {
+    .mat-button.mat-primary.mat-button-disabled, .mat-button.mat-accent.mat-button-disabled, .mat-button.mat-warn.mat-button-disabled, .mat-button.mat-button-disabled.mat-button-disabled, .mat-icon-button.mat-primary.mat-button-disabled, .mat-icon-button.mat-accent.mat-button-disabled, .mat-icon-button.mat-warn.mat-button-disabled, .mat-icon-button.mat-button-disabled.mat-button-disabled, .mat-stroked-button.mat-primary.mat-button-disabled, .mat-stroked-button.mat-accent.mat-button-disabled, .mat-stroked-button.mat-warn.mat-button-disabled, .mat-stroked-button.mat-button-disabled.mat-button-disabled {
+        color: #000;
+    }
+}
+

@@ -1,0 +1,353 @@
+<div class="customer-list-wrapper">
+    <div class="container-fluid">
+        <div class="page-title mb-5">        
+            <h2 class="font-muli"><mat-icon>list</mat-icon> <span routerLink="/dashboard">Dashboard</span> / <span>Customer Data</span></h2>
+        </div>
+
+         <!-- search data table filter start -->
+         <div class="clearfix">
+           <div class="float-left">
+              <button mat-raised-button class="download-all" (click)="downloadAll()">Download All</button>
+              <ng-container *ngIf="filteredList && filteredList.data.length">
+                <!-- <button mat-raised-button class="excel-print" (click)="exporter.exportTable('xlsx',{fileName:'ratnam_enterprise'})">Excel</button> -->
+                <!-- <button mat-raised-button class="excel-print" (click)="downloadSelected(exporter)">Excel</button> -->
+                <!-- <button mat-raised-button (click)="print()">Print</button> -->
+              </ng-container>              
+           </div>
+            <div class="float-right filter-field">
+                <mat-form-field>
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Search by: Name, Email, Status..." #input>
+                <mat-icon matSuffix>filter_alt</mat-icon>
+                </mat-form-field>
+            </div>
+        </div>
+        <!-- search data table filter end -->
+        <div class="mat-elevation-z8 mt-3 mat-table-wrapper">
+                <table mat-table [dataSource]="dataSource">
+             
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="checkbox">
+                    <th mat-header-cell *matHeaderCellDef> Select </th>
+                    <td mat-cell *matCellDef="let element; let row;" data-label="Select">
+                      <mat-checkbox class="example-margin" (change)="selectVal($event.checked, row)"></mat-checkbox>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="visitDate">
+                    <th mat-header-cell *matHeaderCellDef> Visit Date </th>
+                    <td mat-cell *matCellDef="let element" data-label="Visit Date"> {{element.visitDate}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="complaintno">
+                    <th mat-header-cell *matHeaderCellDef> Case Id </th>
+                    <td mat-cell *matCellDef="let element" data-label="Complaint No"> {{element.complaintNo}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="fullname">
+                    <th mat-header-cell *matHeaderCellDef> FullName </th>
+                    <td mat-cell *matCellDef="let element;" data-label="FullName"> {{element.fullName}} </td>
+                  </ng-container>
+            
+                  <ng-container matColumnDef="phoneno">
+                    <th mat-header-cell *matHeaderCellDef> Phone No </th>
+                    <td mat-cell *matCellDef="let element" data-label="Phone No"> {{element.contactNo}} </td>
+                  </ng-container>
+            
+              
+                  <ng-container matColumnDef="area">
+                    <th mat-header-cell *matHeaderCellDef> Area </th>
+                    <td mat-cell *matCellDef="let element" data-label="Area"> {{element.area}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="remarks">
+                    <th mat-header-cell *matHeaderCellDef> Remarks </th>
+                    <td mat-cell *matCellDef="let element" data-label="Remarks"> {{element.technicianRemarks}} </td>
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="technicianName">
+                    <th mat-header-cell *matHeaderCellDef> Technician Name </th>
+                    <td mat-cell *matCellDef="let element" data-label="Technician Name"> {{element.technicianName}} </td>
+                  </ng-container> 
+
+                  
+                  <ng-container matColumnDef="amount">
+                    <th mat-header-cell *matHeaderCellDef> Amount </th>
+                    <td mat-cell *matCellDef="let element" data-label="Amount"> {{element.amount}} </td>
+                  </ng-container>
+                  
+                  <ng-container matColumnDef="modelno">
+                    <th mat-header-cell *matHeaderCellDef> Model No. </th>
+                    <td mat-cell *matCellDef="let element" data-label="Model No"> {{element.modelNo}} </td>
+                  </ng-container>
+
+                  
+                  <ng-container matColumnDef="callType">
+                    <th mat-header-cell *matHeaderCellDef> Call Type </th>
+                    <td mat-cell *matCellDef="let element" data-label="Call Type"> {{element.callType}} </td>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="product">
+                    <th mat-header-cell *matHeaderCellDef> Product Type </th>
+                    <td mat-cell *matCellDef="let element" data-label="Product Type"> {{element.productType}} </td>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="serialno">
+                    <th mat-header-cell *matHeaderCellDef> Serial No. </th>
+                    <td mat-cell *matCellDef="let element" data-label="Serial No"> {{element.serialNo}} </td>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="purchasedate">
+                    <th mat-header-cell *matHeaderCellDef> Purchase Date </th>
+                    <td mat-cell *matCellDef="let element" data-label="Purchase Date"> {{element.purchaseDate}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="billno">
+                    <th mat-header-cell *matHeaderCellDef> Bill No </th>
+                    <td mat-cell *matCellDef="let element" data-label="Bill No"> {{element.billNo}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="address">
+                    <th mat-header-cell *matHeaderCellDef> Address </th>
+                    <td mat-cell *matCellDef="let element" data-label="Remarks"> {{element.address}} </td>
+                  </ng-container>
+    
+                  <!-- Action Column -->
+                   <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef> Action </th>
+                    <td mat-cell *matCellDef="let element; let row; let i = index;" data-label="Action">
+                      <mat-icon class="edit pointer" (click)="editData(row)">edit</mat-icon>
+                      <mat-icon class="pointer" (click)="delete(row, i)">delete</mat-icon>
+                    </td>
+                   </ng-container>
+              
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+              
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+              </div>
+    </div>
+
+    <div class="hidden-mat-table d-none">
+      <div class="mat-elevation-z8 mt-3">
+          <!-- <table mat-table matTableExporter [dataSource]="filteredList" #exporter="matTableExporter"> -->
+            <table mat-table matTableExporter [dataSource]="filteredList">
+          <ng-container matColumnDef="fullname">
+            <th mat-header-cell *matHeaderCellDef> FullName </th>
+            <td mat-cell *matCellDef="let element;" data-label="FullName"> {{element.fullName}} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="phoneno">
+            <th mat-header-cell *matHeaderCellDef> Phone No </th>
+            <td mat-cell *matCellDef="let element" data-label="Phone No"> {{element.contactNo}} </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="complaintno">
+            <th mat-header-cell *matHeaderCellDef> Complaint No </th>
+            <td mat-cell *matCellDef="let element" data-label="Complaint No"> {{element.complaintNo}} </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="area">
+            <th mat-header-cell *matHeaderCellDef> Area </th>
+            <td mat-cell *matCellDef="let element" data-label="Area"> {{element.area}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="product">
+            <th mat-header-cell *matHeaderCellDef> Product Type </th>
+            <td mat-cell *matCellDef="let element" data-label="Product Type"> {{element.productType}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="callType">
+            <th mat-header-cell *matHeaderCellDef> Call Type </th>
+            <td mat-cell *matCellDef="let element" data-label="Call Type"> {{element.callType}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="modelno">
+            <th mat-header-cell *matHeaderCellDef> Model No. </th>
+            <td mat-cell *matCellDef="let element" data-label="Model No"> {{element.modelNo}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="serialno">
+            <th mat-header-cell *matHeaderCellDef> Serial No. </th>
+            <td mat-cell *matCellDef="let element" data-label="Serial No"> {{element.serialNo}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="purchasedate">
+            <th mat-header-cell *matHeaderCellDef> Purchase Date </th>
+            <td mat-cell *matCellDef="let element" data-label="Purchase Date"> {{element.purchaseDate}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="technicianName">
+            <th mat-header-cell *matHeaderCellDef> Technician Name </th>
+            <td mat-cell *matCellDef="let element" data-label="Technician Name"> {{element.technicianName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="visitDate">
+            <th mat-header-cell *matHeaderCellDef> Visit Date </th>
+            <td mat-cell *matCellDef="let element" data-label="Visit Date"> {{element.visitDate}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="billno">
+            <th mat-header-cell *matHeaderCellDef> Bill No </th>
+            <td mat-cell *matCellDef="let element" data-label="Bill No"> {{element.billNo}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef> Amount </th>
+            <td mat-cell *matCellDef="let element" data-label="Amount"> {{element.amount}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="remarks">
+            <th mat-header-cell *matHeaderCellDef> Remarks </th>
+            <td mat-cell *matCellDef="let element" data-label="Remarks"> {{element.technicianRemarks}} </td>
+          </ng-container>     
+
+          <ng-container matColumnDef="address">
+            <th mat-header-cell *matHeaderCellDef> Address </th>
+            <td mat-cell *matCellDef="let element" data-label="Remarks"> {{element.address}} </td>
+          </ng-container>
+          
+          <tr mat-header-row *matHeaderRowDef="displayedFilteredColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedFilteredColumns;"></tr>
+        </table>
+      </div>
+    </div>
+
+
+    <!-- print section -->
+    <div id="print-section" class="container d-none">
+      <div *ngFor="let list of filteredList.data;" class="repeat">
+        <table class="tableprint">
+          <tbody>
+            <tr class="row-data">
+              <td>
+                <img src="/assets/imgs/logo.jpg" alt="Ratna Enterprises" style="width: 100px">
+              </td>
+              <td class="address">
+                <p>AUTHORISED SERVICE PROVIDER</p>
+                <p>Ratna Enterprises</p>
+                <p>501, Gaurishankar CHS Ltd, Near Sidhpura</p>
+                <p>Masrani Lane</p>
+              </td>
+              <td class="faber">
+                <h2>FABER</h2>
+              </td>
+            </tr>
+            <tr class="row-head">
+              <td colspan="3">Customer Basic Info</td>
+            </tr>
+            <tr class="row-data">
+              <td>
+                  <div class="data-wrapper">
+                      <h4 class="label">Full Name</h4>
+                      <span class="info">{{list.fullName}}</span>
+                  </div>
+              </td>
+              <td>
+                  <div class="data-wrapper">
+                      <h4 class="label">Phone No</h4>
+                      <span class="info">{{list.contactNo}}</span>
+                    </div>
+              </td>
+              <td>
+                <div class="data-wrapper">
+                    <h4 class="label">Complaint No</h4>
+                    <span class="info">{{list.complaintNo}}</span>
+                </div>
+            </td>
+            </tr>
+            <tr class="row-data">
+                <td>
+                    <div class="data-wrapper">
+                        <h4 class="label">Area Address</h4>
+                        <span class="info">{{list.area}}</span>
+                      </div>
+                </td>
+                <td>
+                    <div class="data-wrapper">
+                        <h4 class="label">Address</h4>
+                        <span class="info">{{list.address}}</span>
+                      </div>
+                </td>
+              </tr>
+              <tr class="row-head">
+                  <td colspan="3">Product Details</td>
+                </tr>
+                <tr class="row-data">
+                  <td>
+                      <div class="data-wrapper">
+                          <h4 class="label">Product</h4>
+                          <span class="info">{{list.productType}}</span>
+                      </div>
+                  </td>
+                  <td>
+                      <div class="data-wrapper">
+                          <h4 class="label">Model No</h4>
+                          <span class="info">{{list.modelNo}}</span>
+                        </div>
+                  </td>
+                  <td>
+                      <div class="data-wrapper">
+                          <h4 class="label">Serial No</h4>
+                          <span class="info">{{list.serialNo}}</span>
+                        </div>
+                  </td>
+                </tr>
+                <tr class="row-data">
+                    <td>
+                        <div class="data-wrapper">
+                            <h4 class="label">Purchase Date</h4>
+                            <span class="info">{{list.purchaseDate}}</span>
+                        </div>
+                    </td>
+                    <td>
+                      <div class="data-wrapper">
+                          <h4 class="label">Call Type</h4>
+                          <span class="info">{{list.callType}}</span>
+                        </div>
+                  </td>
+                </tr>
+                <tr  class="row-head">
+                    <td colspan="3">Technician Details</td>
+                  </tr>
+                  <tr class="row-data">
+                    <td>
+                        <div class="data-wrapper">
+                            <h4 class="label">Technician Name</h4>
+                            <span class="info"></span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="data-wrapper">
+                            <h4 class="label">Remarks</h4>
+                            <span class="info"></span>
+                          </div>
+                    </td>
+                    <td>
+                        <div class="data-wrapper">
+                            <h4 class="label">Bill No</h4>
+                            <span class="info"></span>
+                          </div>
+                    </td>
+                  </tr>
+                  <tr class="row-data">
+                      <td>
+                          <div class="data-wrapper">
+                              <h4 class="label">Amount</h4>
+                              <span class="info"></span>
+                          </div>
+                      </td>
+                      <td>
+                          <div class="data-wrapper">
+                              <h4 class="label">Visit Date</h4>
+                              <span class="info"></span>
+                          </div>
+                      </td>
+                  </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+</div>

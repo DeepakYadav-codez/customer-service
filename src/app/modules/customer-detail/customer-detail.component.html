@@ -1,0 +1,195 @@
+<div class="customer-detail-wrapper">
+    <div class="container">
+        <div class="page-title">        
+            <h2 class="font-muli"><mat-icon>article</mat-icon> <span routerLink="/dashboard">Dashboard</span> / <span>Add Customer Detail</span></h2>
+        </div>
+        <div class="customer-detail-form">
+            <form [formGroup]="customerDetail">
+                <section>
+                    <h2 class="heading">Customer Basic Information</h2>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="field-holder">
+                                <mat-form-field appearance="legacy">
+                                    <mat-label>Service Type</mat-label>
+                                    <mat-select formControlName="serviceType">
+                                        <mat-option *ngFor="let item of serviceTypeList" [value]="item">
+                                        {{item}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field> 
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="field-holder">
+                                <mat-form-field appearance="legacy">
+                                    <mat-label>Full Name</mat-label>
+                                    <input matInput type="text" formControlName="fullName">
+                                </mat-form-field> 
+                            </div>
+                        </div>
+                        <!-- <div class="col-4">
+                            <div class="field-holder">
+                                <mat-form-field appearance="legacy">
+                                    <mat-label>Email Id</mat-label>
+                                    <input matInput type="text" formControlName="emailId">
+                                </mat-form-field>
+                            </div>
+                        </div> -->
+                        <div class="col-4">
+                            <div class="field-holder">
+                                <mat-form-field appearance="legacy">
+                                    <mat-label>Phone No</mat-label>
+                                    <input matInput type="text" formControlName="contactNo">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="field-holder">
+                                <mat-form-field appearance="legacy">
+                                    <mat-label>Case Id</mat-label>
+                                    <input matInput type="text" formControlName="complaintNo">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="field-holder">
+                                <mat-form-field appearance="legacy">
+                                    <mat-label>Address</mat-label>
+                                    <!-- <input matInput type="text" formControlName="address"> -->
+                                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" formControlName="address"></textarea>
+
+                                  </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="field-holder">
+                                <mat-form-field appearance="legacy">
+                                    <mat-label>Area Address</mat-label>
+                                    <input matInput type="text" formControlName="area">
+                                  </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h2 class="heading">Product Details</h2>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="field-holder">
+                                <mat-form-field appearance="legacy">
+                                    <mat-label>Spare</mat-label>
+                                    <mat-select formControlName="productType">
+                                        <mat-option *ngFor="let item of productList" [value]="item">
+                                        {{item}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field> 
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="field-holder">
+                                <mat-form-field appearance="legacy">
+                                    <mat-label>Model name</mat-label>
+                                    <input matInput type="text" formControlName="modelNo">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="field-holder">
+                                <mat-form-field appearance="legacy">
+                                    <mat-label>Serial No</mat-label>
+                                    <input matInput type="text" formControlName="serialNo">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="field-holder">
+                                <!-- <mat-form-field appearance="legacy">
+                                    <mat-label>Purchase Date</mat-label>
+                                    <input matInput type="text" formControlName="purchaseDate">
+                                </mat-form-field> -->
+                                <mat-form-field appearance="legacy">
+                                    <mat-label>Purchase Date</mat-label>
+                                    <!-- <input matInput type="text" formControlName="visitDate"> -->
+                                    <input matInput [matDatepicker]="pickerPurchase" formControlName="purchaseDate" class="visit-date">
+                                    <mat-datepicker-toggle matSuffix [for]="pickerPurchase"></mat-datepicker-toggle>
+                                    <mat-datepicker #pickerPurchase></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="field-holder">
+                                <mat-form-field appearance="legacy">
+                                    <mat-label>Call Type</mat-label>
+                                    <mat-select formControlName="callType">
+                                        <mat-option *ngFor="let item of callTypeList" [value]="item">
+                                        {{item}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field> 
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section formArrayName="technicalDetails" class="tech-detail">
+                    <h2 class="heading">Technician Details</h2>
+                    <div class="container-fluid">
+                        <div class="row" *ngFor="let tech of technicalDetails?.controls; let i = index" [formGroupName]="i">
+                            <div class="col-4">
+                                <div class="field-holder">
+                                    <mat-form-field appearance="legacy">
+                                        <mat-label>Technician Name</mat-label>
+                                        <input matInput type="text" formControlName="technicianName">
+                                    </mat-form-field> 
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="field-holder">
+                                    <mat-form-field appearance="legacy">
+                                        <mat-label>Remarks</mat-label>
+                                        <input matInput type="text" formControlName="technicianRemarks">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="field-holder">
+                                    <mat-form-field appearance="legacy">
+                                        <mat-label>Bill No</mat-label>
+                                        <input matInput type="text" formControlName="billNo">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="field-holder">
+                                    <mat-form-field appearance="legacy">
+                                        <mat-label>Amount</mat-label>
+                                        <input matInput type="text" formControlName="amount">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="field-holder">
+                                    <mat-form-field appearance="legacy">
+                                        <mat-label>Visit Date</mat-label>
+                                        <!-- <input matInput type="text" formControlName="visitDate"> -->
+                                        <input matInput [matDatepicker]="picker" formControlName="visitDate" class="visit-date">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </section>
+                <div class="clearfix button-wrapper">
+                    <div class="float-right">
+                            <button mat-raised-button color="accent" type="button" (click)="saveCustomerDetails(customerDetail)" [ngClass]="{'form-invalid': customerDetail.invalid}">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
