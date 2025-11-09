@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -15,7 +16,7 @@ export class CustomerDetailComponent implements OnInit {
   productList: Array<String> = [];
   callTypeList: Array<String> = [];
   serviceTypeList: Array<String> = [];
-  constructor(private fireStore: AngularFirestore, private commonService: CommonService, private router: Router, private formBuilder: FormBuilder) {
+  constructor(private fireStore: AngularFirestore, private commonService: CommonService, private router: Router, private formBuilder: FormBuilder, private http: HttpClient) {
     this.customerDetail = this.formBuilder.group({
       serviceType: new FormControl(null, [Validators.required]),
       fullName: new FormControl(null, [Validators.required]),
@@ -108,6 +109,8 @@ export class CustomerDetailComponent implements OnInit {
     //   } 
     //   this.addTechnicanGroup();     
     // }
+
+    this.callMockJson();
   }
 
   ngOnChanges(){
@@ -128,26 +131,36 @@ export class CustomerDetailComponent implements OnInit {
     })
   }
 
-  saveCustomerDetails(formData: any){
+  saveCustomerDetails(formData: any, masked?: boolean){
 
     if(formData?.value?.technicalDetails?.length){
       formData?.value?.technicalDetails.forEach((itemFormData: any) => {
-        var getVisitDate = itemFormData.visitDate;
+        if(masked){
+          itemFormData.visitDate = itemFormData['visitDate'] || "";
+        }else {
+          var getVisitDate = itemFormData.visitDate;
         var getDate = getVisitDate.getDate() && getVisitDate.getDate() < 10 ? '0'+ getVisitDate.getDate(): getVisitDate.getDate();
         var getMonth = getVisitDate.getMonth() && (getVisitDate.getMonth()+1) < 10 ? ('0'+ (getVisitDate.getMonth()+1)): (getVisitDate.getMonth()+1);
         var getYear = getVisitDate.getFullYear();
         var setVisitDate = getDate+'/'+getMonth+'/'+getYear;
         itemFormData.visitDate =  setVisitDate;
+        }
+        
       });
     }
 
     if(formData?.value?.purchaseDate){
-      var getPurchaseDate = formData?.value?.purchaseDate;
+      if(masked) {
+        formData.value.purchaseDate = formData.value.purchaseDate || ""
+      }else {
+        var getPurchaseDate = formData?.value?.purchaseDate;
       var getDate = getPurchaseDate.getDate() && getPurchaseDate.getDate() < 10 ? '0'+ getPurchaseDate.getDate(): getPurchaseDate.getDate();
       var getMonth = getPurchaseDate.getMonth() && (getPurchaseDate.getMonth()+1) < 10 ? ('0'+ (getPurchaseDate.getMonth()+1)): (getPurchaseDate.getMonth()+1);
       var getYear = getPurchaseDate.getFullYear();
       var setPurchaseDate = getDate+'/'+getMonth+'/'+getYear;
       formData.value.purchaseDate =  setPurchaseDate;
+      }
+      
     }
 
 
@@ -179,5 +192,58 @@ export class CustomerDetailComponent implements OnInit {
   get technicalDetails(): FormArray {
     return this.customerDetail.get('technicalDetails') as FormArray;
   }
+
+  
+callMockJson(){
+  this.http.get('assets/KENT_NEW_DATA.json').subscribe(
+      (res: any) => {
+        var modifiedNewData = res?.map((item: any) => {
+          var formData: any;
+          var obj: any;
+          if(item){
+              obj = {
+                  "serviceType": item['serviceType'] || "AK Services",
+                  "fullName": item['NAME'] || "",
+                  "contactNo": item['NUMBER'] || "",
+                  "complaintNo": item['CASE ID'] || "",
+                  "address": item['ADDRESS'] || "",
+                  "area": item['area'] || "",
+                  "productType": item['W\/S'] || "default",
+                  "modelNo": item['UNIT'],
+                  "serialNo": item['serialNo'] || "",
+                  "purchaseDate": item['DATE'] ? item['DATE'].split('\/').join('/') : "",
+                  "callType": item['callType'] || 'callType_default',
+                  "technicalDetails": [
+                      {
+                          "technicianName": item['EGG NAME'] || "",
+                          "technicianRemarks": item['REMARK'] || "",
+                          "billNo": item['billNo'] || "",
+                          "amount": item['amount'] || "",
+                          "visitDate": item['DATE'] ? item['DATE'].split('\/').join('/') : "",
+                      }
+                  ]
+              }
+              
+          }
+           formData = {
+            value: obj
+          };
+          return formData;
+        })
+        for(let i = 0; i <= modifiedNewData?.length; i++){
+          console.log(modifiedNewData[i])
+          setTimeout(()=> {
+            debugger;
+            this.saveCustomerDetails(modifiedNewData[i], true);
+          },0)
+
+        }
+        console.log("Data loaded", modifiedNewData);
+      },
+      err => {
+        console.error("Error loading JSON", err);
+      }
+    );
+}
 
 }

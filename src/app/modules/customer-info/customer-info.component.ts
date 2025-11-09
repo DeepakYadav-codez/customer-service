@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatTableDataSource } from '@angular/material/table';
@@ -14,7 +15,7 @@ export class CustomerInfoComponent implements OnInit {
   displayedFilteredColumns: string[] = ['visitDate','complaintno','fullname','phoneno','area','remarks','technicianName','amount', 'modelno', 'callType', 'product', 'serialno', 'purchasedate',  'billno','address'];
   dataSource = new MatTableDataSource<any>();
   filteredList = new MatTableDataSource<any>();
-  constructor(private fireStore: AngularFirestore, private commonService: CommonService, private router: Router) { }
+  constructor(private fireStore: AngularFirestore, private commonService: CommonService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.fireStore.collection('customerData').get().subscribe((data: any) => {
@@ -45,6 +46,8 @@ export class CustomerInfoComponent implements OnInit {
       // this.filteredList = new MatTableDataSource([]);
       // this.dataSource.paginator = this.paginator;
     })
+
+    // this.callMockJson();
   }
 
   applyFilter(event: Event) {
@@ -194,5 +197,7 @@ sortArray(list: any){
     return bDateVal - aDateVal;
   })
 }
+
+
 
 }

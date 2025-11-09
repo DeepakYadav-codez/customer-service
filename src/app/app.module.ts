@@ -20,6 +20,7 @@ import { CustomerInfoComponent } from './modules/customer-info/customer-info.com
 import { CustomerDetailComponent } from './modules/customer-detail/customer-detail.component';
 import { EditProductInfoComponent } from './modules/edit-product-info/edit-product-info.component';
 import { NotificationsComponent } from './modules/notifications/notifications.component';
+import { HttpClientModule } from '@angular/common/http';
 
 // const firebaseConfig = {
 //   apiKey: "AIzaSyAdoQAurH1lK2IMOqVdBZvWNin0uRmSLsY",
@@ -53,7 +54,8 @@ const firebaseConfig = {
     AngularFirestoreModule,
     BrowserAnimationsModule, 
     ReactiveFormsModule,
-    SharedModule 
+    SharedModule,
+    HttpClientModule  
   ],
   providers: [CommonService],
   bootstrap: [AppComponent]
